@@ -71,7 +71,7 @@ public class AlimentoInputDto {
 
     public AlimentoInputDto comprobadorImagen(AlimentoInputDto alimentoInputDto){
         if(alimentoInputDto.getImagen()==null)
-            alimentoInputDto.setImagen("string.jpg");
+            alimentoInputDto.setImagen("null.png");
         return alimentoInputDto;
     }
 

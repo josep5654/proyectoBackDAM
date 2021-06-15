@@ -14,12 +14,7 @@ public class DeleteAlimentoController {
     DeleteEstudiantePortRepository deleteEstudiantePortRepository;
 
     @DeleteMapping("{id}")
-    public ResponseEntity DeleteEstudiante(@PathVariable int id) {
-        try {
+    public void DeleteEstudiante(@PathVariable int id) {
             deleteEstudiantePortRepository.deleteEstudianteById(id);
-            return ResponseEntity.accepted().body("Eliminado con exito");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al eliminar");
-        }
     }
 }

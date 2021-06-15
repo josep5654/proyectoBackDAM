@@ -8,6 +8,7 @@ import proyectoFinal.back.alimentos.domain.AlimentosJpa;
 import proyectoFinal.back.alimentos.infraestructure.controller.dto.input.AlimentoInputDto;
 import proyectoFinal.back.alimentos.infraestructure.repository.CreateAlimentoPortRepositorio;
 import proyectoFinal.back.alimentos.infraestructure.repository.GetByIdAlimentoPortRepository;
+import proyectoFinal.back.alimentos.infraestructure.repository.UpdateAlimentoPortRepository;
 
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -23,12 +24,17 @@ public class CreateAlimentoController {
 
     CreateAlimentoPortRepositorio createEstudiantePortRepositorio;
     GetByIdAlimentoPortRepository getByIdAlimentoPortRepository;
+    UpdateAlimentoPortRepository updateAlimentoPortRepository;
+    AlimentosJpa alimentosJpaGeneral;
 
 
     @PostMapping("/")
     public AlimentosJpa PostEstudiante(@RequestBody AlimentoInputDto alimentoInputDto) throws NotFoundException {
 
-       AlimentosJpa alimentosJpaGeneral = createEstudiantePortRepositorio.createAlimento(alimentoInputDto);
+
+       alimentosJpaGeneral = createEstudiantePortRepositorio.createAlimento(alimentoInputDto);
+
+       System.out.println(alimentoInputDto.toString());
             return alimentosJpaGeneral;
 
 
@@ -41,7 +47,6 @@ public class CreateAlimentoController {
     @PostMapping("/uploadImage/{userId}")
     public int handleFileUpload(@PathVariable int userId , @RequestParam("file") MultipartFile file, HttpSession session) throws NotFoundException, IOException {
 
-        AlimentosJpa alimentosJpaGeneral = getByIdAlimentoPortRepository.getAlimentobyId(userId);
 
         System.out.println(alimentosJpaGeneral.toString());
 
@@ -61,7 +66,7 @@ public class CreateAlimentoController {
 
                 System.out.println("paso 5");
                 System.out.println("inside image Upload IF when getProfileImage() is null ");
-
+//TODO REFACTORIZAR NO GUARDAR UN DTO NUEVO
 
 
                 try {
@@ -70,8 +75,13 @@ public class CreateAlimentoController {
                     System.out.println("--------------------------------------------------------");
                     alimentosJpaGeneral.setImagen(profileImage);
                     System.out.println(alimentosJpaGeneral.toString());
-                    AlimentoInputDto alimentoInputDto = new AlimentoInputDto(alimentosJpaGeneral);
-                    createEstudiantePortRepositorio.createAlimento(alimentoInputDto);
+                   // AlimentoInputDto alimentoInputDto = new AlimentoInputDto(alimentosJpaGeneral);
+
+
+                    updateAlimentoPortRepository.updateEstudiante(alimentosJpaGeneral.getId(),alimentosJpaGeneral);
+
+
+
                 } catch (Exception exception) {
                     System.out.println("error while uploading image catch:: " + exception.getMessage());
 

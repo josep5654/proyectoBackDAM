@@ -2,6 +2,7 @@ package proyectoFinal.back.alimentos.domain;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.springframework.stereotype.Component;
 import proyectoFinal.back.alimentos.infraestructure.controller.dto.input.AlimentoInputDto;
 import proyectoFinal.back.alimentos.infraestructure.controller.dto.output.AlimentoOutputDto;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Component
 public class AlimentosJpa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
